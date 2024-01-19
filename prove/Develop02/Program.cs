@@ -3,7 +3,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Formats.Asn1;
 
 /* I was able to complete all the original requirements of the assignment.
-I also exceed the requirements by... */
+I also exceeded the requirements by adding a random inspirational quote class
+that chooses a random quote from a list of options. The quote displays when 
+adding a new entry and saves with the entry in the journal as well.*/
 
 class Program
 {

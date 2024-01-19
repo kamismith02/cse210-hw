@@ -6,6 +6,10 @@ public class Journal
     {
         Entry entry = new Entry();
 
+        InspirationalQuoteGenerator generateQuote = new InspirationalQuoteGenerator();
+        entry._inspirationalQuote = generateQuote.GetRandomQuote();
+        Console.WriteLine($"{entry._inspirationalQuote}");
+
         PromptGenerator generatePrompt = new PromptGenerator();
         entry._promptText = generatePrompt.GetRandomPrompt();
         Console.WriteLine($"{entry._promptText}");
@@ -33,7 +37,7 @@ public class Journal
         {
             foreach (var entry in _entries)
             {
-                writer.WriteLine($"{entry._date}|{entry._promptText}|{entry._entryText}");
+                writer.WriteLine($"{entry._date}|{entry._inspirationalQuote}|{entry._promptText}|{entry._entryText}");
             }
         }
     }
@@ -47,12 +51,13 @@ public class Journal
             while (!reader.EndOfStream)
             {
                 string[] entryData = reader.ReadLine().Split('|');
-                if (entryData.Length == 3)
+                if (entryData.Length == 4)
                 {
                     Entry loadedEntry = new Entry();
                     loadedEntry._date = entryData[0];
-                    loadedEntry._promptText = entryData[1];
-                    loadedEntry._entryText = entryData[2];
+                    loadedEntry._inspirationalQuote = entryData[1];
+                    loadedEntry._promptText = entryData[2];
+                    loadedEntry._entryText = entryData[3];
 
                     _entries.Add(loadedEntry);
                 }
