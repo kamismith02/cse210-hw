@@ -1,7 +1,7 @@
 using System;
 using System.Formats.Asn1;
 
-/*I succeeded meeting all regular requirments of the program.
+/*I succeeded meeting all regular requirements of the program.
 As well as exceeding the requirements by adding a random scripture generator so the 
 program chooses a random scripture from a list to display. I also updated it so it
 only hides words that weren't already hidden.*/
