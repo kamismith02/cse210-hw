@@ -9,14 +9,14 @@ public class SimpleGoal : Goal
 
     public override void RecordEvent()
     {
-        
+        _isComplete = true;
     }
     public override bool IsComplete()
     {
-        throw new NotImplementedException();
+        return _isComplete;
     }
     public override string GetStringRepresentation()
     {
-        throw new NotImplementedException();
+        return $"{_shortName} ({_description})";
     }
 }

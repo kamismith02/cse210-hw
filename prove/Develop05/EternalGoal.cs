@@ -7,14 +7,14 @@ public class EternalGoal : Goal
 
     public override void RecordEvent()
     {
-
+        // Eternal goals are never marked complete
     }
     public override bool IsComplete()
     {
-        throw new NotImplementedException();
+        return false;
     }
     public override string GetStringRepresentation()
     {
-        throw new NotImplementedException();
+        return $"{_shortName} ({_description})";
     }
 }
