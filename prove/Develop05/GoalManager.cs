@@ -92,7 +92,7 @@ public class GoalManager
                 complete = " ";
             }
 
-            Console.WriteLine($"[{complete}] {goal.GetStringRepresentation()}");
+            Console.WriteLine($"[{complete}] {goal.GetShortName()} ({goal.GetDescription()}) {goal.GetDetailsString()}");
         }
 
         Console.WriteLine();
@@ -147,7 +147,7 @@ public class GoalManager
         int done = int.Parse(goalDone) - 1;
         Goal goal = _goals[done];
 
-        _goals[done].RecordEvent();
+        goal.RecordEvent();
         _score += goal.GetPoints();
         int earned = goal.GetPoints();
 
@@ -180,7 +180,7 @@ public class GoalManager
             foreach (var goal in _goals)
             {
                 // Concatenate goal properties into a single string
-                string goalInfo = $"{goal.GetType().Name}:{goal.GetShortName()},{goal.GetDescription()},{goal.GetPoints()}";
+                string goalInfo = goal.GetStringRepresentation();
                 // Write the string to the file
                 writer.WriteLine(goalInfo);
             }
@@ -200,25 +200,36 @@ public class GoalManager
             while ((line = reader.ReadLine()) != null)
             {
                 string[] parts = line.Split(':'); // Split the line at the colon
-                string[] goalInfo = parts[1].Split(','); // Split the goal information
                 string type = parts[0]; // Extract the goal type
+                string[] goalInfo = parts[1].Split(','); // Split the goal information
                 string name = goalInfo[0];
                 string description = goalInfo[1];
                 int points = int.Parse(goalInfo[2]);
+                bool isComplete = goalInfo[3] == "True";
 
                 Goal goal;
                 switch (type)
                 {
                     case "SimpleGoal":
                         goal = new SimpleGoal(name, description, points);
+                        if (isComplete)
+                        {
+                            ((SimpleGoal)goal).RecordEvent(); // Mark as completed
+                        }
                         break;
                     case "EternalGoal":
                         goal = new EternalGoal(name, description, points);
                         break;
                     case "ChecklistGoal":
-                        int target = int.Parse(goalInfo[3]);
-                        int bonus = int.Parse(goalInfo[4]);
+                        int bonus = int.Parse(goalInfo[3]);
+                        int target = int.Parse(goalInfo[4]);
+                        int amountCompleted = int.Parse(goalInfo[5]);
                         goal = new ChecklistGoal(name, description, points, target, bonus);
+                        ((ChecklistGoal)goal).RecordEvent(); // Record the amount completed
+                        for (int i = 1; i < amountCompleted; i++)
+                        {
+                            ((ChecklistGoal)goal).RecordEvent(); // Record additional completions
+                        }
                         break;
                     default:
                         goal = null;
