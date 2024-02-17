@@ -1,4 +1,12 @@
 using System;
+/* I am currently working on the Foundation 4 Final Project. I was able to 
+complete the first two foundation programs and get them up and working. 
+The first program holds details and comments for YouTube videos and displays 
+the information to the user. The second program holds details for a product 
+ordering system and displays order and customer information to the user. 
+Everything should be accounted for that was in the project description. 
+I will continue working to complete the final two programs in the coming week.
+*/
 
 class Program
 {
